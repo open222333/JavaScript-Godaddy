@@ -7,7 +7,7 @@ let app = express();
 let urlencodedParser = bodyParser.urlencoded()
 const setting = require('./setting.json');
 
-app.post('/get_domain', urlencodedParser, function (req, res) {
+app.post('/check_domain_date', urlencodedParser, function (req, res) {
 
   let expires_days = 0;
   let show_date = false;
@@ -21,7 +21,7 @@ app.post('/get_domain', urlencodedParser, function (req, res) {
 
   // 顯示日期
   if (req.body.hasOwnProperty('show_date')) {
-    if (req.body.show_date === 'true') {
+    if (req.body.show_date === '1') {
       show_date = req.body.show_date;
     }
   }
