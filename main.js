@@ -5,6 +5,7 @@ let app = express();
 
 // create application/x-www-form-urlencoded parser
 let urlencodedParser = bodyParser.urlencoded()
+const setting = require('./setting.json');
 
 app.post('/get_domain', urlencodedParser, function (req, res) {
 
@@ -89,7 +90,7 @@ app.post('/get_domain', urlencodedParser, function (req, res) {
   request(options, callback).json();
 })
 
-let server = app.listen(80, function () {
+let server = app.listen(setting.port, function () {
 
   let host = server.address().address
   let port = server.address().port
