@@ -84,6 +84,8 @@ app.post('/check_domain_date', urlencodedParser, function (req, res) {
       }
 
       res.json(response_data);
+    } else {
+      res.json(response);
     }
   }
 
