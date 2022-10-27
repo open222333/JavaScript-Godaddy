@@ -46,6 +46,7 @@ app.post('/check_domain_date', urlencodedParser, function (req, res) {
       let response_data = {};
       let ex_domains = [];
       let soon_domains = [];
+      let safe_domains = [];
 
       for (let i = 0; i < body.length; i++) {
 
@@ -57,7 +58,7 @@ app.post('/check_domain_date', urlencodedParser, function (req, res) {
         let days = parseInt(seconds / (1000 * 60 * 60 * 24));
 
         // 快過期的
-        if (days > expires_days) {
+        if (days < expires_days) {
           let meg_soon;
           if (show_date) {
             meg_soon = `${body[i]['domain']} - ${body[i]['expires']}`
@@ -65,9 +66,18 @@ app.post('/check_domain_date', urlencodedParser, function (req, res) {
             meg_soon = `${body[i]['domain']}`
           }
           soon_domains.push(meg_soon);
+        } else if (days > expires_days) {
+          let meg_safe;
+          if (show_date) {
+            meg_safe = `${body[i]['domain']} - ${body[i]['expires']}`
+          } else {
+            meg_safe = `${body[i]['domain']}`
+          }
+          safe_domains.push(meg_safe);
         }
 
-        response_data[`${expires_days}天後過期`] = soon_domains;
+        response_data[`${expires_days}天內過期`] = soon_domains;
+        response_data[`${expires_days}天後過期`] = safe_domains;
 
         // 已過期的
         if (seconds < 0) {
