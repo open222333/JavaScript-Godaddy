@@ -58,7 +58,7 @@ app.post('/check_domain_date', urlencodedParser, function (req, res) {
         let days = parseInt(seconds / (1000 * 60 * 60 * 24));
 
         // 快過期的
-        if (days < expires_days) {
+        if (days < expires_days && days > 0) {
           let meg_soon;
           if (show_date) {
             meg_soon = `${body[i]['domain']} - ${body[i]['expires']}`
